@@ -62,7 +62,7 @@ public class ClientHandler implements Runnable {
                         this.closeEverything(socket, bufferedReader, bufferedWriter);
                     }
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
                 threadSet.iterator().next();
