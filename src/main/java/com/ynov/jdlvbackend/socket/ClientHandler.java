@@ -11,6 +11,8 @@ import java.util.Set;
 public class ClientHandler implements Runnable {
 
     public static ArrayList<ClientHandler> clientHandlerArrayList = new ArrayList<>();
+    private final String HAS_ENTER_THE_TCHAT = " has entered the tchat !";;
+    private final String HAS_LEFT_TCHAT = " has left the tchat!";
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
@@ -26,7 +28,7 @@ public class ClientHandler implements Runnable {
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername = bufferedReader.readLine();
             clientHandlerArrayList.add(this);
-            broadcastMessage("Server: " + clientUsername + " has entered the tchat !");
+            broadcastMessage(clientUsername + HAS_ENTER_THE_TCHAT);
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
@@ -71,7 +73,7 @@ public class ClientHandler implements Runnable {
 
     public void removeClientHandler() {
         clientHandlerArrayList.remove(this);
-        broadcastMessage("SERVER: " + clientUsername + " has left the tchat!");
+        broadcastMessage(clientUsername + HAS_LEFT_TCHAT);
     }
 
     public void closeEverything(Socket socket, BufferedReader reader, BufferedWriter writer) {
