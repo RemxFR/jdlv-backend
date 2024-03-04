@@ -1,4 +1,4 @@
-package com.ynov.jdlvbackend.persistence.model;
+package com.ynov.jdlvbackend.dto.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @Data
 @Entity
-@Table(name="t_user")
+@Table(name = "t_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,7 @@ public class User {
 
     public User() {
     }
+
     public User(String login, String mdp) {
         this.login = login;
         this.mdp = mdp;

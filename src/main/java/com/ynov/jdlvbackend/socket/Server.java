@@ -17,14 +17,12 @@ public class Server {
         try {
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected");
                 ClientHandler clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }
         } catch (IOException e) {
-            System.out.println("In server");
             e.printStackTrace();
         }
 
@@ -32,11 +30,10 @@ public class Server {
 
     public void closeServerSocket() {
         try {
-            if(serverSocket != null) {
+            if (serverSocket != null) {
                 serverSocket.close();
             }
         } catch (IOException e) {
-            System.out.println("In close ServerSocket");
             e.printStackTrace();
         }
     }

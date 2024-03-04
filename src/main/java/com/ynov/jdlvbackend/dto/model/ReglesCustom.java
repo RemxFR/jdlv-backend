@@ -1,4 +1,4 @@
-package com.ynov.jdlvbackend.persistence.model;
+package com.ynov.jdlvbackend.dto.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +10,7 @@ import lombok.*;
 @Data
 @Entity
 @Table(name = "t_reglesCustom")
+@Builder
 public class ReglesCustom {
 
     @Id

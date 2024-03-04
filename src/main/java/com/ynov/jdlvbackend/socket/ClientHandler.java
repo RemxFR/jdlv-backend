@@ -1,10 +1,13 @@
 package com.ynov.jdlvbackend.socket;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Set;
 
+@Slf4j
 public class ClientHandler implements Runnable {
 
     public static ArrayList<ClientHandler> clientHandlerArrayList = new ArrayList<>();
@@ -16,7 +19,7 @@ public class ClientHandler implements Runnable {
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
-        System.out.println("Opening socket, server side");
+        log.info("Opening socket, server side");
         try {
             this.socket = socket;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -25,7 +28,6 @@ public class ClientHandler implements Runnable {
             clientHandlerArrayList.add(this);
             broadcastMessage("Server: " + clientUsername + " has entered the tchat !");
         } catch (IOException e) {
-            System.out.println("In client handler");
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
@@ -40,7 +42,6 @@ public class ClientHandler implements Runnable {
                 broadcastMessage(messageFromClient);
 
             } catch (IOException e) {
-                System.out.println("In Thread");
                 closeEverything(socket, bufferedReader, bufferedWriter);
                 break;
             }
@@ -56,12 +57,11 @@ public class ClientHandler implements Runnable {
                         clientHandler.bufferedWriter.newLine();
                         clientHandler.bufferedWriter.flush();
                     } else {
-                        System.out.println("Message est null");
                         this.closeEverything(socket, bufferedReader, bufferedWriter);
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Erreur soulevée !");
+                e.printStackTrace();
                 Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
                 threadSet.iterator().next();
                 closeEverything(socket, bufferedReader, bufferedWriter);
@@ -70,9 +70,7 @@ public class ClientHandler implements Runnable {
     }
 
     public void removeClientHandler() {
-        System.out.println("Remove client handler");
         clientHandlerArrayList.remove(this);
-        System.out.println("list size: " + clientHandlerArrayList.size());
         broadcastMessage("SERVER: " + clientUsername + " has left the tchat!");
     }
 
@@ -80,19 +78,19 @@ public class ClientHandler implements Runnable {
         removeClientHandler();
         try {
             if (reader != null) {
-                System.out.println("CLose reader");
+                log.info("Close reader");
                 reader.close();
             }
             if (writer != null) {
-                System.out.println("CLose writer");
+                log.info("Close writer");
                 writer.close();
             }
             if (socket != null) {
-                System.out.println("CLose socket");
+                log.info("Close socket");
                 socket.close();
             }
         } catch (IOException e) {
-            System.out.println("closeEveruthing error.");
+            log.error("closeEverything error.");
             e.printStackTrace();
         }
     }

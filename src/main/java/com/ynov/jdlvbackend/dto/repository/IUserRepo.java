@@ -1,6 +1,6 @@
-package com.ynov.jdlvbackend.persistence;
+package com.ynov.jdlvbackend.dto.repository;
 
-import com.ynov.jdlvbackend.persistence.model.User;
+import com.ynov.jdlvbackend.dto.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
