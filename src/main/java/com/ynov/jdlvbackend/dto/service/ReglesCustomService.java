@@ -11,16 +11,28 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe qui permet de gérer les opérations CRUD et logique sur l'objet ReglesCustom.
+ */
 @Service
 @AllArgsConstructor
 public class ReglesCustomService {
-
+    /**
+     * Interface repository pour gérer les opérations CRUD sur l'objet ReglesCustom.
+     */
     @Autowired
     IReglesCustomRepo iReglesCustomRepo;
-
+    /**
+     * Service pour gérer les opérations CRUD et logiques sur l'objet Utilisateur.
+     */
     @Autowired
     UserService userService;
-
+    /**
+     * Méthode pour sauvegarder les règles customisées par l'utilisateur et lui affilier par rapport à son id.
+     * @param reglesCustom
+     * @param loginUser
+     * @return
+     */
     public ReglesCustom sauverRegles(ReglesCustomDto reglesCustom, String loginUser) {
         ReglesCustom regCust = null;
         User user = null;
@@ -37,7 +49,11 @@ public class ReglesCustomService {
         }
         return regCust;
     }
-
+    /**
+     * Méthode pour récupére les règles enregistrées par l'utilisateur à partir de son login.
+     * @param login
+     * @return
+     */
     public List<ReglesCustom> recupererRegles(String login) {
         List<ReglesCustom> reglesCustoms = null;
         User user = null;

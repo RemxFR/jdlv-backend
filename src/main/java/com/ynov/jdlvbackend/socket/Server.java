@@ -4,14 +4,24 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Classe qui gère la partie Socket pour se connecter avec la Socket du front.
+ */
 public class Server {
-
+    /**
+     * ServerSocket pour se connecter via la technologie des sockets.
+     */
     private ServerSocket serverSocket;
-
+    /**
+     * Constructeur qui déclare le serverSocket utilisé.
+     * @param serverSocket
+     */
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
-
+    /**
+     * Méthode qui démarre le server et crée un nouveau thread pour chaque nouvel utilisateur connecté.
+     */
     public void startServer() {
 
         try {
@@ -27,7 +37,9 @@ public class Server {
         }
 
     }
-
+    /**
+     * Méthode pour fermer le serveurSocket.
+     */
     public void closeServerSocket() {
         try {
             if (serverSocket != null) {

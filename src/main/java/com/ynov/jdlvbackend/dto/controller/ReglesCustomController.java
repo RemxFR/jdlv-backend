@@ -11,14 +11,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Contrôleur qui gère la réception des requêtes Http relatives à l'objet ReglesCustom.
+ */
 @RestController
 @RequestMapping("regles")
 @AllArgsConstructor
 public class ReglesCustomController {
-
+    /**
+     * Service qui gère es opérations CRUD et logique sur l'objet ReglesCustom.
+     */
     @Autowired
     private ReglesCustomService reglesCustomService;
 
+    /**
+     * Endpoint relatif à la sauvegarde de règles dans un profil utilisateur à partir de son profil.
+     * @param reglesCustomDto
+     * @param login
+     * @return
+     */
     @PostMapping("sauver/{login}")
     public ResponseEntity<ReglesCustom> sauverRegles(@RequestBody ReglesCustomDto reglesCustomDto,
                                                      @PathVariable("login") String login) {
@@ -26,6 +37,11 @@ public class ReglesCustomController {
         return new ResponseEntity<>(customRegles, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint relatif à la récupération des règles enregistrées par un utilisateur, à partir de son login.
+     * @param login
+     * @return
+     */
     @GetMapping("recuperer/{login}")
     public ResponseEntity<List<ReglesCustom>> recupererRegles(@PathVariable("login") String login) {
         List<ReglesCustom> reglesCustoms = this.reglesCustomService.recupererRegles(login);

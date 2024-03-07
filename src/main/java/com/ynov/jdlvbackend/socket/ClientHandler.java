@@ -7,18 +7,44 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Set;
 
+/**
+ * Classe qui gère la réception des messages venus du tchat et qui les renvoie aux autres utilisateurs.
+ */
 @Slf4j
 public class ClientHandler implements Runnable {
-
+    /**
+     * Liste des utilisateur connectés.
+     */
     public static ArrayList<ClientHandler> clientHandlerArrayList = new ArrayList<>();
-    private final String HAS_ENTER_THE_TCHAT = " has entered the tchat !";;
+    /**
+     * Constante pour afficher qu'un utilisateur est connecté au tchat.
+     */
+    private final String HAS_ENTER_THE_TCHAT = " has entered the tchat !";
+    /**
+     * Constante pour afficher qu'un utilisateur a quitté le tchat.
+     */
     private final String HAS_LEFT_TCHAT = " has left the tchat!";
+    /**
+     * Socket
+     */
     private Socket socket;
+    /**
+     * BufferedReader pour lire les bytes entrants.
+     */
     private BufferedReader bufferedReader;
+    /**
+     * BufferedWriter pour écrire sous forme de bytes le message à envoyé vers le front.
+     */
     private BufferedWriter bufferedWriter;
+    /**
+     * Login de l'utilisateur qui a écrit le message, qui est entré ou qui a quitté le tchat.
+     */
     private String clientUsername;
-    private int thread = 0;
 
+    /**
+     * Constructeur qui intitialise la Socket et qui ouvre les thread de lecture et d'écriture des messages.
+     * @param socket
+     */
     public ClientHandler(Socket socket) {
         this.socket = socket;
         log.info("Opening socket, server side");
@@ -34,6 +60,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Méthode de Runnable qui permet dans un nouveau Trhead de lire et de renvoyer vers les autres utilisateurs du
+     * tchat, un message.
+     */
     @Override
     public void run() {
         String messageFromClient;
@@ -50,6 +80,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Méthode qui permet de renvoyer le message reçu aux utilisateurs autres que celui qui l'a envoyé, en se basant
+     * sur le login utilisateur.
+     * @param message
+     */
     public void broadcastMessage(String message) {
         for (ClientHandler clientHandler : clientHandlerArrayList) {
             try {
@@ -71,11 +106,21 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Méthode pour supprimer un utilisateur de la liste des utilisateurs lors de sa déconnexion
+     * et d'afficher un message un message dans le tchat qui prévient qu'il a quitté le tchat.
+     */
     public void removeClientHandler() {
         clientHandlerArrayList.remove(this);
         broadcastMessage(clientUsername + HAS_LEFT_TCHAT);
     }
 
+    /**
+     * Méthode pour fermer tous les Threads de socket, de reader et de writer.
+     * @param socket
+     * @param reader
+     * @param writer
+     */
     public void closeEverything(Socket socket, BufferedReader reader, BufferedWriter writer) {
         removeClientHandler();
         try {

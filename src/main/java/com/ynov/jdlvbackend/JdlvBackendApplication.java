@@ -9,7 +9,12 @@ import java.net.ServerSocket;
 
 @SpringBootApplication
 public class JdlvBackendApplication {
-
+	/**
+	 * Main méthode de l'application qui définie le port du serveur en ce qui concerne la partie socket.
+	 * Cette méthode démarre également le server.
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 
 		SpringApplication.run(JdlvBackendApplication.class, args);
