@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface IReglesCustomRepo extends JpaRepository<ReglesCustom, Integer> {
     /**
      * Query qui permet de retrouver les règles par le login de l'utilisateur qui les a enregistrées.
+     *
      * @param idUSer
      * @return
      */

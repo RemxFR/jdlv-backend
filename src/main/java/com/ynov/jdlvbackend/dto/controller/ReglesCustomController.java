@@ -26,6 +26,7 @@ public class ReglesCustomController {
 
     /**
      * Endpoint relatif à la sauvegarde de règles dans un profil utilisateur à partir de son profil.
+     *
      * @param reglesCustomDto
      * @param login
      * @return
@@ -39,12 +40,13 @@ public class ReglesCustomController {
 
     /**
      * Endpoint relatif à la récupération des règles enregistrées par un utilisateur, à partir de son login.
+     *
      * @param login
      * @return
      */
     @GetMapping("recuperer/{login}")
-    public ResponseEntity<List<ReglesCustom>> recupererRegles(@PathVariable("login") String login) {
-        List<ReglesCustom> reglesCustoms = this.reglesCustomService.recupererRegles(login);
+    public ResponseEntity<List<ReglesCustomDto>> recupererRegles(@PathVariable("login") String login) {
+        List<ReglesCustomDto> reglesCustoms = this.reglesCustomService.recupererRegles(login);
         return new ResponseEntity<>(reglesCustoms, HttpStatus.OK);
     }
 }

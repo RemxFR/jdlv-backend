@@ -46,6 +46,7 @@ public class User {
 
     /**
      * Constructeur sans la liste de reglesCustom.
+     *
      * @param login
      * @param mdp
      */

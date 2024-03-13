@@ -1,9 +1,6 @@
 package com.ynov.jdlvbackend.dto.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * ReglesCustomDto
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ReglesCustomDto {
     /**
      * Sur-population.

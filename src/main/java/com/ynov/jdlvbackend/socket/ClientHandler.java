@@ -43,6 +43,7 @@ public class ClientHandler implements Runnable {
 
     /**
      * Constructeur qui intitialise la Socket et qui ouvre les thread de lecture et d'écriture des messages.
+     *
      * @param socket
      */
     public ClientHandler(Socket socket) {
@@ -83,6 +84,7 @@ public class ClientHandler implements Runnable {
     /**
      * Méthode qui permet de renvoyer le message reçu aux utilisateurs autres que celui qui l'a envoyé, en se basant
      * sur le login utilisateur.
+     *
      * @param message
      */
     public void broadcastMessage(String message) {
@@ -117,6 +119,7 @@ public class ClientHandler implements Runnable {
 
     /**
      * Méthode pour fermer tous les Threads de socket, de reader et de writer.
+     *
      * @param socket
      * @param reader
      * @param writer

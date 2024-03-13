@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +28,10 @@ public class ReglesCustomService {
      */
     @Autowired
     UserService userService;
+
     /**
      * Méthode pour sauvegarder les règles customisées par l'utilisateur et lui affilier par rapport à son id.
+     *
      * @param reglesCustom
      * @param loginUser
      * @return
@@ -49,23 +52,33 @@ public class ReglesCustomService {
         }
         return regCust;
     }
+
     /**
      * Méthode pour récupére les règles enregistrées par l'utilisateur à partir de son login.
+     *
      * @param login
      * @return
      */
-    public List<ReglesCustom> recupererRegles(String login) {
-        List<ReglesCustom> reglesCustoms = null;
+    public List<ReglesCustomDto> recupererRegles(String login) {
+        List<ReglesCustomDto> reglesCustomsDtos = new ArrayList<>();
         User user = null;
         if (login != null && !login.equals("")) {
             user = this.userService.findUserByLogin(login);
             if (user != null) {
                 Optional<List<ReglesCustom>> listReglesOpt = this.iReglesCustomRepo.recupererReglesParIdUser(user.getId());
                 if (listReglesOpt.isPresent()) {
-                    reglesCustoms = listReglesOpt.get();
+                    for (ReglesCustom custom : listReglesOpt.get()) {
+                        ReglesCustomDto customDto = ReglesCustomDto.builder()
+                                .reproduction(custom.getReproduction())
+                                .sousPopulation(custom.getSousPopulation())
+                                .surPopulation(custom.getSurPopulation())
+                                .tailleGrille(custom.getTailleGrille())
+                                .build();
+                        reglesCustomsDtos.add(customDto);
+                    }
                 }
             }
         }
-        return reglesCustoms;
+        return reglesCustomsDtos;
     }
 }

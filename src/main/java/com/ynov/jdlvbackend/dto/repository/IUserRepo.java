@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface IUserRepo extends JpaRepository<User, Integer> {
     /**
      * Query pour trouver un utilisateur par son login.
+     *
      * @param userLogin
      * @return
      */

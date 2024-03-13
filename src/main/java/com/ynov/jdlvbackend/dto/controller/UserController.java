@@ -6,7 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Contrôleur qui gère la réception des requêtes Http envoyées du front en ce qui concerne l'objet User.
@@ -23,7 +26,8 @@ public class UserController {
 
     /**
      * Endpoint relative à la méthode d'inscription d'un utilisateur.
-      * @param userDto
+     *
+     * @param userDto
      * @return
      */
     @PostMapping("inscription")
@@ -34,8 +38,10 @@ public class UserController {
         }
         return new ResponseEntity<>(userInscrit, HttpStatus.OK);
     }
+
     /**
      * Méthode relative à l'authentification d'un utilisateur au moment de sa connexion.
+     *
      * @param userDto
      * @return
      */
@@ -49,4 +55,7 @@ public class UserController {
         }
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
+
+    /**TODO : Créer endpoint pour tester le chiffrage du mot de passe et le déchiffrer depuis ChiffrageDTOService. Si tout est ok, enregistrer le mdp dans la table user et gérer la comparaison au moment de l'authentification.
+     **/
 }

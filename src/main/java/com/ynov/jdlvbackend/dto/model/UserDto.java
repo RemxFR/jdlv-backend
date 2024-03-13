@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * UserDto.
  */
@@ -21,4 +23,8 @@ public class UserDto {
      * Mot de passe.
      */
     private String mdp;
+    /**
+     * Liste des règles enregistrées par le joueur.
+     */
+    private List<ReglesCustomDto> reglesCustomList;
 }

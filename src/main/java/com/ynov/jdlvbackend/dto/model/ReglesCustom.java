@@ -1,5 +1,6 @@
 package com.ynov.jdlvbackend.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,7 +41,8 @@ public class ReglesCustom {
     /**
      * User + relation de cardinalité avec t_user + clé étrangère user_id dans la table t_reglesCustom.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne
     private User user;
 }
 
